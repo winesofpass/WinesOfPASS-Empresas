@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WinesOf PASS para empresas</title>
+  <meta name="description" content="Sumá tu empresa a WinesOf PASS para atraer nuevos clientes, fidelizar mejor a los que ya tenés y ganar visibilidad dentro de una red de beneficios vinculada al vino, la gastronomía, el turismo y las experiencias." />
+  <meta name="theme-color" content="#5e0b2d" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --bg: #0b0910;
+      --bg2: #130c12;
+      --panel: rgba(28, 18, 26, 0.82);
+      --panel-soft: rgba(255, 255, 255, 0.04);
+      --stroke: rgba(255,255,255,.08);
+      --text: #f7f1f3;
+      --muted: #c9b8c0;
+      --brand: #8f0f45;
+      --brand-2: #cf255f;
+      --brand-3: #f2a3b8;
+      --shadow: 0 30px 80px rgba(0,0,0,.35);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      color: var(--text);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(207,37,95,.15), transparent 26%),
+        radial-gradient(circle at 100% 10%, rgba(242,163,184,.10), transparent 20%),
+        radial-gradient(circle at 50% 100%, rgba(143,15,69,.16), transparent 26%),
+        linear-gradient(180deg, var(--bg) 0%, #09080c 100%);
+    }
+
+    .glass {
+      background: linear-gradient(180deg, rgba(31,20,28,.92), rgba(16,10,16,.96));
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .glass-soft {
+      background: linear-gradient(180deg, rgba(35,22,31,.72), rgba(16,10,16,.82));
+      border: 1px solid rgba(255,255,255,.06);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand-chip {
+      background: linear-gradient(135deg, rgba(143,15,69,.24), rgba(207,37,95,.14));
+      border: 1px solid rgba(242,163,184,.20);
+    }
+
+    .brand-button {
+      background: linear-gradient(135deg, #a1124f 0%, #cf255f 100%);
+      box-shadow: 0 18px 40px rgba(161,18,79,.30);
+      transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+    }
+
+    .brand-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 22px 44px rgba(161,18,79,.34);
+    }
+
+    .secondary-button {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+
+    .secondary-button:hover {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.14);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0,1.08fr) minmax(340px, 520px);
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .mock-phone {
+      position: relative;
+      overflow: hidden;
+      min-height: 520px;
+      border-radius: 2rem;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(255,255,255,.10), transparent 20%),
+        radial-gradient(circle at 76% 16%, rgba(255,255,255,.08), transparent 18%),
+        radial-gradient(circle at 50% 54%, rgba(255,255,255,.03), transparent 30%),
+        linear-gradient(135deg, #68102f 0%, #8d103e 42%, #5f0d29 100%);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 35px 80px rgba(0,0,0,.42);
+    }
+
+    .mock-phone::before {
+      content: '';
+      position: absolute;
+      width: 340px;
+      height: 340px;
+      border-radius: 999px;
+      border: 12px solid rgba(255,255,255,.06);
+      right: -90px;
+      bottom: -100px;
+    }
+
+    .floating-card {
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.08));
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 16px 40px rgba(0,0,0,.28);
+      backdrop-filter: blur(16px);
+    }
+
+    .input, .select, .textarea {
+      width: 100%;
+      border-radius: 1rem;
+      border: 1px solid rgba(255,255,255,.09);
+      background: rgba(255,255,255,.04);
+      color: white;
+      padding: .95rem 1rem;
+      outline: none;
+      transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    .input::placeholder, .textarea::placeholder { color: rgba(255,255,255,.45); }
+
+    .input:focus, .select:focus, .textarea:focus {
+      border-color: rgba(242,163,184,.55);
+      background: rgba(255,255,255,.05);
+      box-shadow: 0 0 0 4px rgba(207,37,95,.14);
+    }
+
+    .select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image:
+        linear-gradient(45deg, transparent 50%, rgba(255,255,255,.75) 50%),
+        linear-gradient(135deg, rgba(255,255,255,.75) 50%, transparent 50%);
+      background-position:
+        calc(100% - 24px) calc(1.25rem + 2px),
+        calc(100% - 18px) calc(1.25rem + 2px);
+      background-size: 6px 6px, 6px 6px;
+      background-repeat: no-repeat;
+      padding-right: 2.8rem;
+    }
+
+    .select option {
+      background: #160d14;
+      color: white;
+    }
+
+    .textarea { min-height: 118px; resize: vertical; }
+
+    .map-frame {
+      width: 100%;
+      min-height: 420px;
+      border: 0;
+      border-radius: 1.5rem;
+      background: #140c12;
+    }
+
+    .news-card {
+      display: block;
+      border-radius: 1.4rem;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+
+    .news-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+    }
+
+    .news-thumb {
+      min-height: 142px;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.00), rgba(0,0,0,.18)),
+        radial-gradient(circle at 12% 18%, rgba(255,255,255,.10), transparent 20%),
+        linear-gradient(135deg, #5b0d29 0%, #7e1138 45%, #240f19 100%);
+      position: relative;
+    }
+
+    .news-thumb::after {
+      content: attr(data-badge);
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .45rem .65rem;
+      border-radius: 999px;
+      color: white;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(8px);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .8rem 1rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      color: #f5e9ed;
+    }
+
+    .mini-note {
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 1120px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .glass, .glass-soft { border-radius: 1.5rem !important; }
+      .mock-phone { min-height: 420px; }
+      .map-frame { min-height: 360px; }
+      input, select, textarea, button, a { font-size: 16px !important; }
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-rose-700/40 selection:text-white">
+  <header class="sticky top-0 z-50 border-b border-white/5 backdrop-blur-xl" style="background: rgba(11,9,16,.84);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-4">
+      <a href="#top" class="flex items-center gap-3 min-w-0">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-rose-700 to-rose-500 flex items-center justify-center shadow-lg shadow-rose-900/30">
+          <i data-lucide="badge-percent" class="w-5 h-5"></i>
+        </div>
+        <div class="min-w-0">
+          <div class="font-bold text-lg leading-none">WinesOf PASS</div>
+          <div class="text-xs text-stone-400 mt-1">Landing corporativa</div>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-2 text-sm">
+        <a href="#como-funciona" class="secondary-button rounded-full px-4 py-2 font-medium">Cómo funciona</a>
+        <a href="#mapa" class="secondary-button rounded-full px-4 py-2 font-medium">Mapa</a>
+        <a href="#prensa" class="secondary-button rounded-full px-4 py-2 font-medium">Prensa</a>
+        <a href="#formulario" class="brand-button rounded-full px-5 py-2.5 font-semibold">Postular mi empresa</a>
+      </nav>
+      <a href="#formulario" class="md:hidden brand-button rounded-full px-4 py-2 text-sm font-semibold">Postular</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="pt-10 sm:pt-14 pb-10 sm:pb-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="hero-grid">
+          <div>
+            <div class="inline-flex items-center gap-2 rounded-full brand-chip px-4 py-2 text-sm font-semibold text-rose-100">
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
+              Adhesión sin costo para empresas
+            </div>
+
+            <h1 class="mt-6 text-4xl sm:text-5xl lg:text-6xl font-black tracking-[-0.04em] leading-[1.02] max-w-4xl">
+              Sumá tu empresa a <span class="text-rose-200">WinesOf PASS</span>
+            </h1>
+
+            <p class="mt-5 text-lg sm:text-xl text-stone-300 max-w-3xl leading-relaxed">
+              Atraé nuevos clientes, fidelizá mejor a los que ya tenés y ganá visibilidad dentro de una red de beneficios vinculada al vino, la gastronomía, el turismo, el bienestar, los productos gourmet y las experiencias.
+            </p>
+
+            <div class="mt-6 flex flex-wrap gap-3">
+              <div class="pill"><i data-lucide="circle-dollar-sign" class="w-4 h-4 text-rose-200"></i><span>Sin costo de adhesión</span></div>
+              <div class="pill"><i data-lucide="calendar-x-2" class="w-4 h-4 text-rose-200"></i><span>Sin mensualidades</span></div>
+              <div class="pill"><i data-lucide="users" class="w-4 h-4 text-rose-200"></i><span>Membresía para tu equipo</span></div>
+            </div>
+
+            <div class="mt-7 flex flex-col sm:flex-row gap-3">
+              <a href="#formulario" class="brand-button inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 font-semibold">
+                <i data-lucide="send" class="w-4 h-4"></i>
+                Postular mi empresa
+              </a>
+              <a href="#como-funciona" class="secondary-button inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 font-semibold">
+                <i data-lucide="arrow-down-circle" class="w-4 h-4"></i>
+                Ver cómo funciona
+              </a>
+            </div>
+
+            <div class="mt-8 grid sm:grid-cols-3 gap-4 max-w-4xl">
+              <div class="glass-soft rounded-3xl p-5">
+                <div class="text-3xl font-black text-rose-200">+ visibilidad</div>
+                <p class="mt-2 text-stone-300 leading-relaxed">Tu empresa puede aparecer en la webapp, acciones de difusión, contenidos y mapa de beneficios.</p>
+              </div>
+              <div class="glass-soft rounded-3xl p-5">
+                <div class="text-3xl font-black text-rose-200">+ fidelización</div>
+                <p class="mt-2 text-stone-300 leading-relaxed">Vos definís el beneficio y las condiciones para generar recurrencia y mejores vínculos con tus clientes.</p>
+              </div>
+              <div class="glass-soft rounded-3xl p-5">
+                <div class="text-3xl font-black text-rose-200">+ alcance</div>
+                <p class="mt-2 text-stone-300 leading-relaxed">La membresía está pensada para crecer en varios países y conectar empresas dentro de una misma lógica de circulación.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass rounded-[2rem] p-5 sm:p-6">
+            <div class="mock-phone p-5 sm:p-6 flex flex-col justify-between">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <div class="text-sm uppercase tracking-[0.2em] text-rose-100/90">WinesOf PASS</div>
+                  <div class="mt-3 text-3xl sm:text-4xl font-black tracking-[-0.03em] leading-tight">Para empresas que quieren crecer con beneficios reales</div>
+                </div>
+                <div class="floating-card rounded-2xl px-4 py-3 text-right shrink-0">
+                  <div class="text-xs text-rose-100/80">Modalidad</div>
+                  <div class="font-bold">Postulación</div>
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <div class="floating-card rounded-[1.6rem] p-4 sm:p-5">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-2xl bg-white/10 border border-white/15 flex items-center justify-center">
+                      <i data-lucide="store" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <div class="text-sm text-rose-100/80">Beneficio principal</div>
+                      <div class="font-semibold">Atraer, fidelizar y ganar visibilidad</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="floating-card rounded-3xl p-4">
+                    <div class="text-sm text-rose-100/80">Adhesión</div>
+                    <div class="mt-2 text-2xl font-black">0 costo</div>
+                  </div>
+                  <div class="floating-card rounded-3xl p-4">
+                    <div class="text-sm text-rose-100/80">Equipo</div>
+                    <div class="mt-2 text-2xl font-black">Sin costo</div>
+                  </div>
+                </div>
+
+                <div class="floating-card rounded-[1.6rem] p-4 sm:p-5">
+                  <div class="text-sm text-rose-100/80">Sectores que pueden postularse</div>
+                  <div class="mt-3 flex flex-wrap gap-2 text-sm">
+                    <span class="px-3 py-1.5 rounded-full bg-white/10 border border-white/10">Bodegas</span>
+                    <span class="px-3 py-1.5 rounded-full bg-white/10 border border-white/10">Restaurantes</span>
+                    <span class="px-3 py-1.5 rounded-full bg-white/10 border border-white/10">Hoteles</span>
+                    <span class="px-3 py-1.5 rounded-full bg-white/10 border border-white/10">Vinotecas</span>
+                    <span class="px-3 py-1.5 rounded-full bg-white/10 border border-white/10">Experiencias</span>
+                    <span class="px-3 py-1.5 rounded-full bg-white/10 border border-white/10">Productos y servicios</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-2 flex items-center justify-between gap-4 text-sm text-rose-100/85">
+                <div class="inline-flex items-center gap-2"><i data-lucide="map-pinned" class="w-4 h-4"></i> Mapa de beneficios</div>
+                <div class="inline-flex items-center gap-2"><i data-lucide="globe-2" class="w-4 h-4"></i> Proyección regional</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-8 sm:pb-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-4 gap-4">
+          <div class="glass-soft rounded-3xl p-6">
+            <div class="w-12 h-12 rounded-2xl brand-chip flex items-center justify-center mb-4"><i data-lucide="badge-check" class="w-5 h-5"></i></div>
+            <h2 class="text-xl font-bold">Ingresar no tiene costo</h2>
+            <p class="mt-2 text-stone-300 leading-relaxed">Tu empresa puede postularse sin costo de adhesión ni mensualidades.</p>
+          </div>
+          <div class="glass-soft rounded-3xl p-6">
+            <div class="w-12 h-12 rounded-2xl brand-chip flex items-center justify-center mb-4"><i data-lucide="sliders-horizontal" class="w-5 h-5"></i></div>
+            <h2 class="text-xl font-bold">Vos definís el beneficio</h2>
+            <p class="mt-2 text-stone-300 leading-relaxed">Descuento, upgrade, 2x1, experiencia especial o condiciones puntuales según tu estrategia.</p>
+          </div>
+          <div class="glass-soft rounded-3xl p-6">
+            <div class="w-12 h-12 rounded-2xl brand-chip flex items-center justify-center mb-4"><i data-lucide="map" class="w-5 h-5"></i></div>
+            <h2 class="text-xl font-bold">Más exposición</h2>
+            <p class="mt-2 text-stone-300 leading-relaxed">Tu empresa puede integrarse al mapa y a la lógica de descubrimiento de WinesOf PASS.</p>
+          </div>
+          <div class="glass-soft rounded-3xl p-6">
+            <div class="w-12 h-12 rounded-2xl brand-chip flex items-center justify-center mb-4"><i data-lucide="users-round" class="w-5 h-5"></i></div>
+            <h2 class="text-xl font-bold">Beneficio para el equipo</h2>
+            <p class="mt-2 text-stone-300 leading-relaxed">Los dueños y colaboradores pueden acceder a su membresía sin costo si la empresa se suma.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="como-funciona" class="py-10 sm:py-14">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="glass rounded-[2rem] p-6 sm:p-8 lg:p-10">
+          <div class="max-w-3xl">
+            <div class="text-rose-200 font-medium">Cómo funciona</div>
+            <h2 class="mt-2 text-3xl sm:text-4xl font-black tracking-[-0.03em]">Una propuesta simple para empresas que quieren resultados sin complicarse.</h2>
+            <p class="mt-4 text-stone-300 text-lg leading-relaxed">
+              WinesOf PASS está pensado para empresas que quieren atraer y fidelizar clientes sin entrar en procesos largos ni estructuras complejas. La lógica es clara, flexible y adaptable a distintos rubros y países.
+            </p>
+          </div>
+
+          <div class="mt-8 grid lg:grid-cols-3 gap-5">
+            <div class="rounded-3xl bg-white/[0.03] border border-white/7 p-6">
+              <div class="w-12 h-12 rounded-2xl brand-chip flex items-center justify-center mb-4 text-xl font-black">1</div>
+              <h3 class="text-xl font-bold">Dejás tus datos</h3>
+              <p class="mt-3 text-stone-300 leading-relaxed">Completás la postulación con la información básica de la empresa, el contacto responsable y una breve descripción de lo que ofrecés.</p>
+            </div>
+            <div class="rounded-3xl bg-white/[0.03] border border-white/7 p-6">
+              <div class="w-12 h-12 rounded-2xl brand-chip flex items-center justify-center mb-4 text-xl font-black">2</div>
+              <h3 class="text-xl font-bold">Definimos el encaje y el beneficio</h3>
+              <p class="mt-3 text-stone-300 leading-relaxed">Evaluamos si tu propuesta encaja con la comunidad y coordinamos contigo qué beneficio querés ofrecer y bajo qué condiciones.</p>
+            </div>
+            <div class="rounded-3xl bg-white/[0.03] border border-white/7 p-6">
+              <div class="w-12 h-12 rounded-2xl brand-chip flex items-center justify-center mb-4 text-xl font-black">3</div>
+              <h3 class="text-xl font-bold">Tu empresa entra en circulación</h3>
+              <p class="mt-3 text-stone-300 leading-relaxed">Una vez aprobada, tu empresa puede empezar a ganar exposición dentro del ecosistema WinesOf PASS, incluyendo mapa, beneficios y difusión.</p>
+            </div>
+          </div>
+
+          <div class="mt-8 grid lg:grid-cols-2 gap-5">
+            <div class="rounded-[1.6rem] bg-rose-500/10 border border-rose-400/20 p-6">
+              <h3 class="text-xl font-bold text-white">Lo que podés ofrecer</h3>
+              <p class="mt-3 text-stone-200 leading-relaxed">Descuentos, upgrades, promociones en horarios o días definidos, beneficios especiales, regalos, accesos preferenciales o experiencias exclusivas. La idea es que el beneficio tenga sentido para tu operación y te ayude a generar más movimiento, visibilidad o recurrencia.</p>
+            </div>
+            <div class="rounded-[1.6rem] bg-white/[0.03] border border-white/7 p-6">
+              <h3 class="text-xl font-bold text-white">Para qué tipo de empresa aplica</h3>
+              <p class="mt-3 text-stone-300 leading-relaxed">Bodegas, restaurantes, hoteles, vinotecas, wine bars, espacios de bienestar, experiencias, productos gourmet, tiendas especializadas y otros servicios que aporten valor real a la cadena del vino, la gastronomía, el turismo y el disfrute.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-8 sm:py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-[1.2fr_.8fr] gap-5 items-stretch">
+          <div class="glass-soft rounded-[2rem] p-6 sm:p-8">
+            <div class="text-rose-200 font-medium">Beneficios para tu empresa</div>
+            <h2 class="mt-2 text-3xl sm:text-4xl font-black tracking-[-0.03em]">No es solo publicar tu negocio. Es entrar en una lógica de descubrimiento y fidelización.</h2>
+            <div class="mt-6 space-y-4 text-stone-300 leading-relaxed text-lg">
+              <p>WinesOf PASS te permite mostrar tu empresa dentro de un ecosistema orientado al vino, la gastronomía, las experiencias y el turismo. Eso puede ayudarte a llegar a personas interesadas en salir, descubrir lugares, aprovechar beneficios y volver a elegir propuestas de la red.</p>
+              <p>Además de la visibilidad, podés usar la membresía como una herramienta comercial: definir beneficios concretos, atraer nuevas visitas, generar recorridos entre propuestas complementarias y fortalecer la repetición de consumo.</p>
+            </div>
+          </div>
+
+          <div class="glass-soft rounded-[2rem] p-6 sm:p-8 flex flex-col justify-between">
+            <div>
+              <div class="text-rose-200 font-medium">También suma internamente</div>
+              <h2 class="mt-2 text-2xl sm:text-3xl font-black tracking-[-0.03em]">Tu equipo también gana.</h2>
+              <p class="mt-4 text-stone-300 leading-relaxed">Si tu empresa se suma, los dueños y colaboradores pueden acceder a su membresía sin costo. Eso te da una herramienta más para fortalecer pertenencia, premiar al equipo y acercarlo al ecosistema de beneficios.</p>
+            </div>
+            <div class="mt-6 rounded-[1.6rem] bg-white/[0.04] border border-white/8 p-5">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 rounded-2xl brand-chip flex items-center justify-center"><i data-lucide="heart-handshake" class="w-5 h-5"></i></div>
+                <div class="font-semibold">Valor percibido para colaboradores</div>
+              </div>
+              <p class="text-stone-300 leading-relaxed">No solo mostrás un beneficio hacia afuera. También sumás una propuesta atractiva para quienes forman parte de tu empresa.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="mapa" class="py-10 sm:py-14">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-[.95fr_1.05fr] gap-5 items-start">
+          <div class="glass rounded-[2rem] p-6 sm:p-8">
+            <div class="text-rose-200 font-medium">Mapa de beneficios</div>
+            <h2 class="mt-2 text-3xl sm:text-4xl font-black tracking-[-0.03em]">Mostrar lo que ya existe también vende.</h2>
+            <p class="mt-4 text-stone-300 text-lg leading-relaxed">El mapa ayuda a visualizar que WinesOf PASS no es una promesa vacía. Ya hay empresas vinculadas y una lógica de circulación que puede seguir creciendo. También puede potenciar la idea de recorridos, exposición y descubrimiento entre propuestas complementarias.</p>
+            <div class="mt-6 space-y-3">
+              <div class="pill w-full justify-start"><i data-lucide="map-pinned" class="w-4 h-4 text-rose-200"></i><span>Visualiza empresas ya incorporadas</span></div>
+              <div class="pill w-full justify-start"><i data-lucide="shuffle" class="w-4 h-4 text-rose-200"></i><span>Favorece recorridos entre beneficios</span></div>
+              <div class="pill w-full justify-start"><i data-lucide="earth" class="w-4 h-4 text-rose-200"></i><span>Refuerza la idea de red y expansión</span></div>
+            </div>
+            <p class="mt-5 mini-note">Podés mantener esta sección como prueba visual del ecosistema o incluso evolucionarla más adelante como una experiencia de recorrido dentro de WinesOf PASS.</p>
+          </div>
+
+          <div class="glass-soft rounded-[2rem] p-3 sm:p-4">
+            <iframe class="map-frame" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/d/embed?mid=1mJUJoSi567-CqXQfCQW9Dx3mdMszNV0"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-10 sm:py-14">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="glass rounded-[2rem] p-6 sm:p-8 lg:p-10">
+          <div class="max-w-3xl">
+            <div class="text-rose-200 font-medium">Por qué puede convenirte</div>
+            <h2 class="mt-2 text-3xl sm:text-4xl font-black tracking-[-0.03em]">Una membresía que puede ayudarte a conseguir nuevos clientes y reforzar el vínculo con los que ya te eligen.</h2>
+          </div>
+
+          <div class="mt-8 grid md:grid-cols-2 xl:grid-cols-4 gap-4">
+            <div class="rounded-3xl bg-white/[0.03] border border-white/7 p-5">
+              <div class="w-11 h-11 rounded-2xl brand-chip flex items-center justify-center mb-4"><i data-lucide="search-check" class="w-5 h-5"></i></div>
+              <h3 class="text-xl font-bold">Más descubrimiento</h3>
+              <p class="mt-2 text-stone-300 leading-relaxed">Tu empresa puede llegar a personas que todavía no te conocen pero ya consumen propuestas afines.</p>
+            </div>
+            <div class="rounded-3xl bg-white/[0.03] border border-white/7 p-5">
+              <div class="w-11 h-11 rounded-2xl brand-chip flex items-center justify-center mb-4"><i data-lucide="repeat-2" class="w-5 h-5"></i></div>
+              <h3 class="text-xl font-bold">Más recurrencia</h3>
+              <p class="mt-2 text-stone-300 leading-relaxed">Un buen beneficio puede ayudarte a que el cliente vuelva, recomiende y repita consumo.</p>
+            </div>
+            <div class="rounded-3xl bg-white/[0.03] border border-white/7 p-5">
+              <div class="w-11 h-11 rounded-2xl brand-chip flex items-center justify-center mb-4"><i data-lucide="presentation" class="w-5 h-5"></i></div>
+              <h3 class="text-xl font-bold">Más exposición</h3>
+              <p class="mt-2 text-stone-300 leading-relaxed">Webapp, contenidos, mapa y acciones de difusión ayudan a que tu empresa gane presencia.</p>
+            </div>
+            <div class="rounded-3xl bg-white/[0.03] border border-white/7 p-5">
+              <div class="w-11 h-11 rounded-2xl brand-chip flex items-center justify-center mb-4"><i data-lucide="globe" class="w-5 h-5"></i></div>
+              <h3 class="text-xl font-bold">Escala regional</h3>
+              <p class="mt-2 text-stone-300 leading-relaxed">La red está pensada para seguir creciendo y conectar beneficios en distintos países.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="prensa" class="py-10 sm:py-14">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-6">
+          <div class="max-w-3xl">
+            <div class="text-rose-200 font-medium">Respaldo y credibilidad</div>
+            <h2 class="mt-2 text-3xl sm:text-4xl font-black tracking-[-0.03em]">WinesOf PASS también se apoya en visibilidad, prensa e hitos reales.</h2>
+            <p class="mt-4 text-stone-300 text-lg leading-relaxed">Esta sección ayuda a que la empresa sienta que no está frente a una idea improvisada, sino frente a un proyecto con presencia pública, desarrollo y validación.</p>
+          </div>
+          <a href="#formulario" class="brand-button inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 font-semibold self-start lg:self-auto">
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            Quiero postular mi empresa
+          </a>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-5">
+          <a class="news-card" href="https://infonegocios.biz/enfoque/winesof-lanzo-su-pass-proyecta-3-000-usuarios-y-prepara-expansion-a-latam-y-espana" target="_blank" rel="noopener noreferrer">
+            <div class="news-thumb" data-badge="InfoNegocios"></div>
+            <div class="p-5">
+              <h3 class="text-xl font-bold">WinesOf lanzó su PASS y proyecta expansión</h3>
+              <p class="mt-2 text-stone-300 leading-relaxed">Una nota útil para reforzar visión de negocio, crecimiento y proyección regional.</p>
+              <div class="mt-4 text-rose-200 font-semibold inline-flex items-center gap-2">Ver nota <i data-lucide="external-link" class="w-4 h-4"></i></div>
+            </div>
+          </a>
+
+          <a class="news-card" href="https://infonegocios.biz/plus/winesof-un-pase-digital-para-democratizar-el-enoturismo-hoy-suma-mas-de-500-profesionales-en-10-paises" target="_blank" rel="noopener noreferrer">
+            <div class="news-thumb" data-badge="InfoNegocios Plus"></div>
+            <div class="p-5">
+              <h3 class="text-xl font-bold">Un pase digital para democratizar el enoturismo</h3>
+              <p class="mt-2 text-stone-300 leading-relaxed">Sirve para mostrar comunidad, alcance y una visión más amplia del ecosistema.</p>
+              <div class="mt-4 text-rose-200 font-semibold inline-flex items-center gap-2">Ver nota <i data-lucide="external-link" class="w-4 h-4"></i></div>
+            </div>
+          </a>
+
+          <a class="news-card" href="https://www.noticiasydestinos.com/index.php/es/entrevistas/item/302-winesof-la-app-uruguaya-que-revoluciona-el-enoturismo-con-tecnologia-datos-y-un-pase-digital-global" target="_blank" rel="noopener noreferrer">
+            <div class="news-thumb" data-badge="Noticias & Destinos"></div>
+            <div class="p-5">
+              <h3 class="text-xl font-bold">Tecnología, datos y un pase digital global</h3>
+              <p class="mt-2 text-stone-300 leading-relaxed">Refuerza innovación, diferencial tecnológico y ambición internacional.</p>
+              <div class="mt-4 text-rose-200 font-semibold inline-flex items-center gap-2">Ver nota <i data-lucide="external-link" class="w-4 h-4"></i></div>
+            </div>
+          </a>
+        </div>
+
+        <div class="mt-6 grid md:grid-cols-2 xl:grid-cols-4 gap-4">
+          <div class="glass-soft rounded-3xl p-5">
+            <div class="text-rose-200 font-semibold">Proyecto validado</div>
+            <p class="mt-2 text-stone-300 leading-relaxed">Podés usar este espacio para destacar fondos, hitos, programas o validaciones que refuercen confianza.</p>
+          </div>
+          <div class="glass-soft rounded-3xl p-5">
+            <div class="text-rose-200 font-semibold">Visión regional</div>
+            <p class="mt-2 text-stone-300 leading-relaxed">La propuesta está pensada para escalar en distintos países sin perder foco en calidad y comunidad.</p>
+          </div>
+          <div class="glass-soft rounded-3xl p-5">
+            <div class="text-rose-200 font-semibold">Tecnología aplicada</div>
+            <p class="mt-2 text-stone-300 leading-relaxed">Webapp, mapa, beneficios y captación ordenada de leads aportan una base operativa sólida.</p>
+          </div>
+          <div class="glass-soft rounded-3xl p-5">
+            <div class="text-rose-200 font-semibold">Potencial de articulación</div>
+            <p class="mt-2 text-stone-300 leading-relaxed">Ideal para empresas que buscan más exposición y nuevas formas de conectar con públicos afines.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="formulario" class="py-12 sm:py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-[.9fr_1.1fr] gap-5 items-start">
+          <div class="glass rounded-[2rem] p-6 sm:p-8 lg:sticky lg:top-28">
+            <div class="text-rose-200 font-medium">Formulario corporativo</div>
+            <h2 class="mt-2 text-3xl sm:text-4xl font-black tracking-[-0.03em]">Postulá tu empresa</h2>
+            <p class="mt-4 text-stone-300 text-lg leading-relaxed">Este formulario está pensado para captar tu lead y evaluar si tu empresa encaja dentro de WinesOf PASS. Completarlo no implica alta automática.</p>
+
+            <div class="mt-6 space-y-3 text-stone-300">
+              <div class="flex items-start gap-3"><i data-lucide="check" class="w-5 h-5 text-rose-200 mt-0.5"></i><span>Sin costo de adhesión ni mensualidades.</span></div>
+              <div class="flex items-start gap-3"><i data-lucide="check" class="w-5 h-5 text-rose-200 mt-0.5"></i><span>La empresa define el beneficio y sus condiciones.</span></div>
+              <div class="flex items-start gap-3"><i data-lucide="check" class="w-5 h-5 text-rose-200 mt-0.5"></i><span>Podés participar desde distintos países.</span></div>
+              <div class="flex items-start gap-3"><i data-lucide="check" class="w-5 h-5 text-rose-200 mt-0.5"></i><span>Los dueños y colaboradores pueden acceder a su membresía sin costo si la empresa es aprobada.</span></div>
+            </div>
+
+            <div class="mt-6 rounded-[1.6rem] bg-white/[0.04] border border-white/8 p-5">
+              <div class="font-semibold text-white">Recomendación</div>
+              <p class="mt-2 text-stone-300 leading-relaxed">Mantené este formulario conectado al mismo Google Sheet que la landing actual, pero en una hoja aparte, por ejemplo <strong class="text-white">empresas_leads</strong>.</p>
+            </div>
+          </div>
+
+          <div class="glass-soft rounded-[2rem] p-6 sm:p-8">
+            <form id="leadForm" class="space-y-4" action="YOUR_APPS_SCRIPT_URL" method="POST">
+              <input type="hidden" name="landing_origen" value="landing_empresas_winesof_pass" />
+              <input type="hidden" name="tipo_lead" value="empresa" />
+
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-stone-200 mb-2" for="nombre_empresa">Nombre de la empresa</label>
+                  <input class="input" id="nombre_empresa" name="nombre_empresa" type="text" placeholder="Ej. Bodega Ejemplo" required />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-stone-200 mb-2" for="nombre_contacto">Nombre y apellido del contacto</label>
+                  <input class="input" id="nombre_contacto" name="nombre_contacto" type="text" placeholder="Ej. Ana Pérez" required />
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-stone-200 mb-2" for="cargo">Cargo</label>
+                  <input class="input" id="cargo" name="cargo" type="text" placeholder="Ej. Dirección / Marketing / Propietario" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-stone-200 mb-2" for="email">Email</label>
+                  <input class="input" id="email" name="email" type="email" placeholder="nombre@empresa.com" required />
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-stone-200 mb-2" for="whatsapp">WhatsApp</label>
+                  <input class="input" id="whatsapp" name="whatsapp" type="text" placeholder="Código de país + número" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-stone-200 mb-2" for="sitio_web">Sitio web</label>
+                  <input class="input" id="sitio_web" name="sitio_web" type="url" placeholder="https://" />
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-stone-200 mb-2" for="instagram">Instagram</label>
+                  <input class="input" id="instagram" name="instagram" type="text" placeholder="@tuempresa" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-stone-200 mb-2" for="pais">País</label>
+                  <select class="select" id="pais" name="pais" required>
+                    <option value="" disabled selected>Seleccioná un país</option>
+                    <option>Argentina</option>
+                    <option>Brasil</option>
+                    <option>Chile</option>
+                    <option>España</option>
+                    <option>México</option>
+                    <option>Portugal</option>
+                    <option>Uruguay</option>
+                    <option>Otro</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-stone-200 mb-2" for="ciudad">Ciudad / región</label>
+                  <input class="input" id="ciudad" name="ciudad" type="text" placeholder="Ej. Montevideo / Mendoza / Colonia" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-stone-200 mb-2" for="rubro">Rubro principal</label>
+                  <select class="select" id="rubro" name="rubro" required>
+                    <option value="" disabled selected>Seleccioná una opción</option>
+                    <option>Bodega</option>
+                    <option>Restaurante</option>
+                    <option>Hotel</option>
+                    <option>Vinoteca / Wine Bar</option>
+                    <option>Experiencias</option>
+                    <option>Productos gourmet</option>
+                    <option>Bienestar</option>
+                    <option>Servicios vinculados</option>
+                    <option>Otro</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-stone-200 mb-2" for="que_ofrece">¿Qué ofrece tu empresa?</label>
+                <textarea class="textarea" id="que_ofrece" name="que_ofrece" placeholder="Contanos brevemente qué hace tu empresa y qué la diferencia."></textarea>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-stone-200 mb-2" for="interes">¿Por qué te interesa sumarte a WinesOf PASS?</label>
+                <textarea class="textarea" id="interes" name="interes" placeholder="Ej. atraer nuevos clientes, fidelizar mejor, ganar visibilidad, sumar valor al equipo, etc."></textarea>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-stone-200 mb-2" for="equipo">¿Querés recibir información para registrar a tu equipo?</label>
+                  <select class="select" id="equipo" name="equipo">
+                    <option value="" disabled selected>Seleccioná una opción</option>
+                    <option>Sí</option>
+                    <option>No por ahora</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-stone-200 mb-2" for="como_nos_conocio">¿Cómo conociste WinesOf PASS?</label>
+                  <input class="input" id="como_nos_conocio" name="como_nos_conocio" type="text" placeholder="Instagram, prensa, recomendación, evento, etc." />
+                </div>
+              </div>
+
+              <label class="flex items-start gap-3 rounded-2xl border border-white/8 bg-white/[0.03] p-4 cursor-pointer">
+                <input id="consentimiento" name="consentimiento" type="checkbox" required class="mt-1 accent-rose-600" />
+                <span class="text-stone-300 leading-relaxed">Autorizo el uso de estos datos para que WinesOf me contacte sobre la postulación de mi empresa y el posible registro del equipo.</span>
+              </label>
+
+              <div class="flex flex-col sm:flex-row gap-3 pt-1">
+                <button type="submit" class="brand-button inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 font-semibold">
+                  <i data-lucide="send-horizontal" class="w-4 h-4"></i>
+                  Enviar postulación
+                </button>
+                <a href="#top" class="secondary-button inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 font-semibold">
+                  <i data-lucide="arrow-up" class="w-4 h-4"></i>
+                  Volver arriba
+                </a>
+              </div>
+
+              <p class="mini-note">Reemplazá <strong class="text-white">YOUR_APPS_SCRIPT_URL</strong> por tu endpoint real de Google Apps Script. Si querés, después te dejo esta misma landing conectada al mismo flujo del Google Sheet con otra hoja específica.</p>
+            </form>
+
+            <div id="successMessage" class="hidden mt-5 rounded-2xl border border-emerald-400/20 bg-emerald-500/10 p-4 text-emerald-100">
+              Gracias. Recibimos tu postulación y la vamos a revisar.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-8 sm:py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
+          <div class="glass-soft rounded-3xl p-6">
+            <div class="w-12 h-12 rounded-2xl brand-chip flex items-center justify-center mb-4"><i data-lucide="circle-help" class="w-5 h-5"></i></div>
+            <h3 class="text-xl font-bold">¿Tiene costo adherirse?</h3>
+            <p class="mt-2 text-stone-300 leading-relaxed">No. La postulación y la adhesión no tienen costo ni mensualidades.</p>
+          </div>
+          <div class="glass-soft rounded-3xl p-6">
+            <div class="w-12 h-12 rounded-2xl brand-chip flex items-center justify-center mb-4"><i data-lucide="settings-2" class="w-5 h-5"></i></div>
+            <h3 class="text-xl font-bold">¿Quién define el beneficio?</h3>
+            <p class="mt-2 text-stone-300 leading-relaxed">La empresa define el beneficio, sus condiciones, días, límites o alcances.</p>
+          </div>
+          <div class="glass-soft rounded-3xl p-6">
+            <div class="w-12 h-12 rounded-2xl brand-chip flex items-center justify-center mb-4"><i data-lucide="shield-check" class="w-5 h-5"></i></div>
+            <h3 class="text-xl font-bold">¿Completar esto implica alta automática?</h3>
+            <p class="mt-2 text-stone-300 leading-relaxed">No. Primero evaluamos si la propuesta encaja con el ecosistema y luego coordinamos contigo.</p>
+          </div>
+          <div class="glass-soft rounded-3xl p-6">
+            <div class="w-12 h-12 rounded-2xl brand-chip flex items-center justify-center mb-4"><i data-lucide="briefcase-business" class="w-5 h-5"></i></div>
+            <h3 class="text-xl font-bold">¿El equipo también puede acceder?</h3>
+            <p class="mt-2 text-stone-300 leading-relaxed">Sí. Si la empresa se suma, los dueños y colaboradores pueden acceder a su membresía sin costo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/6 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-stone-400">
+      <p>© 2026 WinesOf PASS. Todos los derechos reservados.</p>
+      <p>Landing corporativa para captar empresas interesadas en sumarse.</p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    const form = document.getElementById('leadForm');
+    const successMessage = document.getElementById('successMessage');
+
+    form.addEventListener('submit', async function (e) {
+      const action = form.getAttribute('action');
+
+      if (!action || action === 'YOUR_APPS_SCRIPT_URL') {
+        e.preventDefault();
+        successMessage.classList.remove('hidden');
+        successMessage.textContent = 'El HTML está pronto. Falta conectar el endpoint real del formulario para guardar los leads en Google Sheets.';
+        successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        return;
+      }
+
+      e.preventDefault();
+
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalButtonText = submitButton.innerHTML;
+      submitButton.disabled = true;
+      submitButton.innerHTML = 'Enviando...';
+
+      try {
+        const formData = new FormData(form);
+        const response = await fetch(action, {
+          method: 'POST',
+          body: formData,
+          mode: 'cors'
+        });
+
+        if (!response.ok) {
+          throw new Error('No se pudo enviar el formulario');
+        }
+
+        form.reset();
+        successMessage.classList.remove('hidden');
+        successMessage.textContent = 'Gracias. Recibimos tu postulación y la vamos a revisar.';
+        successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } catch (error) {
+        successMessage.classList.remove('hidden');
+        successMessage.textContent = 'Hubo un problema al enviar el formulario. Revisá el endpoint o probá nuevamente.';
+        successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } finally {
+        submitButton.disabled = false;
+        submitButton.innerHTML = originalButtonText;
+      }
+    });
+  </script>
+</body>
+</html>
