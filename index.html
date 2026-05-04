@@ -151,6 +151,65 @@
       .media-card .thumb{min-height:182px !important;}
     }
 
+
+    /* Header mobile compacto: logo + acciones en 2 líneas */
+    @media (max-width:760px){
+      .header-inner{
+        display:grid !important;
+        grid-template-columns:1fr !important;
+        gap:8px !important;
+        padding:10px 0 11px !important;
+        align-items:center !important;
+      }
+      .brand-lockup{
+        justify-content:center !important;
+        width:100% !important;
+        min-height:42px !important;
+      }
+      .brand-lockup img{
+        height:48px !important;
+        max-width:230px !important;
+      }
+      .header-actions{
+        width:100% !important;
+        display:grid !important;
+        grid-template-columns:38px 38px 38px minmax(0,1fr) !important;
+        gap:7px !important;
+        align-items:center !important;
+      }
+      .btn-lang{
+        min-width:0 !important;
+        width:38px !important;
+        height:38px !important;
+        padding:0 !important;
+        font-size:13px !important;
+        line-height:1 !important;
+      }
+      .header-actions .btn-primary{
+        grid-column:auto !important;
+        width:100% !important;
+        min-height:38px !important;
+        height:38px !important;
+        padding:0 10px !important;
+        border-radius:999px !important;
+        font-size:13px !important;
+        line-height:1.05 !important;
+        white-space:nowrap !important;
+        overflow:hidden !important;
+        text-overflow:ellipsis !important;
+      }
+      .header .btn svg{
+        width:16px !important;
+        height:16px !important;
+      }
+    }
+    @media (max-width:370px){
+      .header-actions{grid-template-columns:34px 34px 34px minmax(0,1fr) !important;gap:6px !important;}
+      .btn-lang{width:34px !important;height:36px !important;font-size:12px !important;}
+      .header-actions .btn-primary{height:36px !important;min-height:36px !important;font-size:12px !important;padding:0 8px !important;}
+      .brand-lockup img{height:44px !important;max-width:210px !important;}
+    }
+
   </style>
 </head>
 <body>
@@ -516,7 +575,7 @@
         consent:'Autorizo el uso de estos datos para que WinesOf me contacte sobre la solicitud de ingreso de mi empresa.',submit:'Ingresar mi empresa',trust_line:'Más de +90 empresas ya están activando beneficios en Uruguay, Argentina, Perú y España. Una sola membresía sirve para acceder a beneficios en todos los países donde la red está activa. Por ahora, ingresar no tiene costo.',submit_done:'Solicitud enviada',sending:'Enviando...',success:'Gracias. Recibimos la solicitud de tu empresa. Te contactaremos para continuar con el proceso.',error:'No pudimos confirmar el envío. Intenta nuevamente o revisa la implementación del Apps Script.'
       },
       en: {
-        header_cta:'Join with my business',eyebrow:'No joining fee or monthly charges for now',
+        header_cta:'Join my business',eyebrow:'No joining fee or monthly charges for now',
         hero_title:'Bring your business into WinesOf PASS and turn a clear benefit into more visibility, activity and new customers.',
         hero_lead:'A digital membership that connects your business with people looking for wine, gastronomy, tourism and experiences in Uruguay, Argentina, Peru and Spain.',
         global_note:'One PASS gives members access to benefits in every country where the network is active: Uruguay, Argentina, Peru and Spain.',
@@ -550,7 +609,7 @@
         l_name:'Business name',l_category:'Main category',l_country:'Country',l_city:'City / region',l_contact:'Contact full name',l_role:'Role',l_email:'Email',l_whatsapp:'WhatsApp',l_web:'Website',l_instagram:'Instagram',l_team:'Estimated number of collaborators',l_benefit:'What benefit would you like to offer to attract customers?',l_objective:'What would you like to achieve by joining?',consent:'I authorize WinesOf to use this information to contact me about my business entry request.',submit:'Join with my business',trust_line:'More than +90 businesses are already activating benefits in Uruguay, Argentina, Peru and Spain. One membership works across every country where the network is active. For now, joining has no cost.',submit_done:'Request sent',sending:'Sending...',success:'Thank you. We received your business request. We will contact you to continue the process.',error:'We could not confirm the submission. Please try again or check the Apps Script implementation.'
       },
       pt: {
-        header_cta:'Cadastrar minha empresa',eyebrow:'Por enquanto sem taxa de adesão e sem mensalidades',
+        header_cta:'Cadastrar empresa',eyebrow:'Por enquanto sem taxa de adesão e sem mensalidades',
         hero_title:'Cadastre sua empresa no WinesOf PASS e transforme um benefício claro em mais visibilidade, movimento e novos clientes.',
         hero_lead:'Uma membresia digital para conectar sua empresa com pessoas que buscam vinho, gastronomia, turismo e experiências no Uruguai, Argentina, Peru e Espanha.',
         global_note:'Um único PASS permite acessar benefícios em todos os países onde a rede está ativa: Uruguai, Argentina, Peru e Espanha.',
