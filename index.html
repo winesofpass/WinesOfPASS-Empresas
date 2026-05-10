@@ -451,102 +451,78 @@
       document.getElementById('source_url').value = window.location.href;
     }
 
-    function setSubmitState(isSending) {
-      submitBtn.disabled = isSending;
-      submitBtn.style.opacity = isSending ? '.72' : '1';
-      submitBtn.innerHTML = isSending
-        ? '<i data-lucide="loader-circle"></i> ' + ((translations[currentLang] && translations[currentLang].sending) || 'Enviando...')
-        : '<i data-lucide="send-horizontal"></i> ' + ((translations[currentLang] && translations[currentLang].submit) || 'Ingresar mi empresa');
-      lucide.createIcons();
-    }
-
     function showSuccess() {
       successBox.style.display='block';
       errorBox.style.display='none';
       submitBtn.disabled=false;
       submitBtn.style.opacity='1';
-      submitBtn.innerHTML='<i data-lucide="check-circle-2"></i> '+((translations[currentLang] && translations[currentLang].submit_done) || 'Solicitud enviada');
+      submitBtn.innerHTML='<i data-lucide="check-circle-2"></i> '+(translations[currentLang].submit_done || 'Solicitud enviada');
       lucide.createIcons();
       form.reset();
       fillTrackingFields();
-      successBox.scrollIntoView({behavior:'smooth',block:'center'});
-      setTimeout(()=>setSubmitState(false),1800);
+      successBox.scrollIntoView({behavior:'smooth',block:'nearest'});
+      setTimeout(()=>{
+        submitBtn.innerHTML='<i data-lucide="send-horizontal"></i> '+translations[currentLang].submit;
+        lucide.createIcons();
+      },1800);
     }
 
     function showError() {
       errorBox.style.display='block';
       successBox.style.display='none';
-      setSubmitState(false);
-      errorBox.scrollIntoView({behavior:'smooth',block:'center'});
+      submitBtn.disabled=false;
+      submitBtn.style.opacity='1';
+      submitBtn.innerHTML='<i data-lucide="send-horizontal"></i> '+translations[currentLang].submit;
+      lucide.createIcons();
+      errorBox.scrollIntoView({behavior:'smooth',block:'nearest'});
     }
 
-    async function sendToAppsScript() {
-      fillTrackingFields();
-
-      const formData = new FormData(form);
-      const body = new URLSearchParams();
-      for (const [key, value] of formData.entries()) {
-        body.append(key, value);
-      }
-
-      // Envío principal: más estable en mobile que el iframe oculto.
-      // Apps Script recibe los campos como e.parameter porque viajan como application/x-www-form-urlencoded.
-      await fetch(form.action, {
-        method: 'POST',
-        mode: 'no-cors',
-        cache: 'no-store',
-        keepalive: true,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-        },
-        body: body.toString()
-      });
-    }
-
-    function submitWithIframeFallback() {
-      return new Promise((resolve, reject) => {
-        let finished = false;
-        const timeout = setTimeout(() => {
-          if (finished) return;
-          finished = true;
-          reject(new Error('iframe timeout'));
-        }, 12000);
-
-        const onLoad = () => {
-          if (finished) return;
-          finished = true;
-          clearTimeout(timeout);
-          iframe.removeEventListener('load', onLoad);
+    const iframeReady = new Promise((resolve) => {
+      const onInitialLoad = () => {
+        iframe.removeEventListener('load', onInitialLoad);
+        iframeInitialized = true;
+        resolve();
+      };
+      iframe.addEventListener('load', onInitialLoad, { once: true });
+      iframe.src = 'about:blank';
+      setTimeout(() => {
+        if (!iframeInitialized) {
+          iframeInitialized = true;
           resolve();
-        };
+        }
+      }, 500);
+    });
 
-        iframe.addEventListener('load', onLoad);
-        form.submit();
-      });
-    }
+    iframe.addEventListener('load', () => {
+      if (!iframeInitialized || !submitting) return;
+      clearTimeout(failTimer);
+      submitting = false;
+      showSuccess();
+    });
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      fillTrackingFields();
       successBox.style.display='none';
       errorBox.style.display='none';
 
-      fillTrackingFields();
       if (!form.reportValidity()) return;
 
-      setSubmitState(true);
+      await iframeReady;
+      submitting = true;
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '.72';
+      submitBtn.innerHTML = '<i data-lucide="loader-circle"></i> ' + (translations[currentLang].sending || 'Enviando...');
+      lucide.createIcons();
 
-      try {
-        await sendToAppsScript();
-        showSuccess();
-      } catch (fetchError) {
-        try {
-          // Respaldo para navegadores muy restrictivos.
-          await submitWithIframeFallback();
-          showSuccess();
-        } catch (iframeError) {
+      failTimer = setTimeout(() => {
+        if (submitting) {
+          submitting = false;
           showError();
         }
-      }
+      }, 12000);
+
+      form.submit();
     });
 
     fillTrackingFields();
